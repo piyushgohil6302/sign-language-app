@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Live sign language detection and translation. Use your camera to detect ASL gestures and translate them to English in real-time.">
+  <title>Live Detection — SignLive AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤟</text></svg>">
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <div class="loader-text">Loading AI models…</div>
+    </div>
+  </div>
+
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" id="navLogo">
+        <div class="nav-logo-icon">🤟</div>
+        <span>SignLive<span style="color: var(--neon-cyan)">AI</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ DETECTION PAGE ═══════════ -->
+  <main class="detect-page">
+    <div class="container">
+      <div class="detect-layout">
+        <!-- LEFT: Video Panel -->
+        <div class="video-panel" id="videoPanel">
+          <div class="video-header">
+            <div class="video-header-left">
+              <div class="live-indicator" id="liveIndicator" style="opacity: 0.4;">
+                <span class="live-dot"></span>
+                LIVE
+              </div>
+              <span style="color: var(--text-muted); font-size: 0.85rem;" id="modelStatus">Model: Loading…</span>
+            </div>
+            <div class="fps-counter" id="fpsCounter">0 FPS</div>
+          </div>
+          <div class="video-container" id="videoContainer">
+            <video id="videoInput" autoplay playsinline muted></video>
+            <canvas id="outputCanvas"></canvas>
+            <div class="video-placeholder" id="videoPlaceholder">
+              <div class="video-placeholder-icon">📷</div>
+              <p>Click "Start Detection" to enable camera</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Translation Panel -->
+        <div class="translation-panel">
+          <!-- Current Gesture -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3>🎯 Current Gesture</h3>
+              <span class="confidence-text" id="confidenceValue">0%</span>
+            </div>
+            <div class="gesture-display">
+              <div class="gesture-letter" id="gestureLetter">—</div>
+              <div class="gesture-name" id="gestureName">Waiting for input…</div>
+              <div class="confidence-bar">
+                <div class="confidence-fill" id="confidenceFill"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Translation Output -->
+          <div class="panel-card" style="flex: 1; display: flex; flex-direction: column;">
+            <div class="panel-header">
+              <h3>💬 Translation</h3>
+              <button class="action-btn" id="clearTextBtn" style="flex: 0; padding: 6px 12px; font-size: 0.75rem;">Clear</button>
+            </div>
+            <div class="translation-output">
+              <div class="translated-text" id="translatedText">
+                <span class="cursor-blink"></span>
+              </div>
+            </div>
+            <div class="translation-actions">
+              <button class="action-btn" id="speakBtn">
+                🔊 Speak
+              </button>
+              <button class="action-btn" id="copyBtn">
+                📋 Copy
+              </button>
+            </div>
+          </div>
+
+          <!-- Detection History -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3>📜 History</h3>
+            </div>
+            <div class="history-list" id="historyList">
+              <div class="history-item" style="color: var(--text-muted); justify-content: center;">
+                No detections yet
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Bar -->
+      <div class="controls-bar">
+        <button class="control-btn btn-start" id="startBtn">
+          ▶ Start Detection
+        </button>
+        <button class="control-btn btn-stop hidden" id="stopBtn">
+          ⏹ Stop Detection
+        </button>
+        <button class="control-btn-secondary" id="ttsToggle">
+          🔇 Auto-Speak: Off
+        </button>
+        <button class="control-btn-secondary" id="addSpaceBtn">
+          ⎵ Add Space
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-text">
+          © 2026 SignLive AI. All data processed locally. <a href="privacy.html" style="color: var(--neon-cyan);">Privacy Policy</a>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#features">Features</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- MediaPipe Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466124/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="js/detection.js"></script>
+</body>
+</html>

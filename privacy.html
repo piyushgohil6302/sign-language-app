@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy policy for SignLive AI. Learn how we handle your camera data and protect your privacy.">
+  <title>Privacy Policy — SignLive AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤟</text></svg>">
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" id="navLogo">
+        <div class="nav-logo-icon">🤟</div>
+        <span>SignLive<span style="color: var(--neon-cyan)">AI</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="detect.html">Detection</a></li>
+      </ul>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="privacy-page">
+    <div class="container">
+      <div class="privacy-content">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: March 15, 2026</p>
+
+        <h2>🔒 Our Commitment to Privacy</h2>
+        <p>
+          SignLive AI is built with privacy at its core. We believe that accessibility technology should never come at the cost of your personal data. This page explains how we protect your information.
+        </p>
+
+        <h2>📷 Camera Data</h2>
+        <p>
+          Our sign language detection feature requires access to your device's camera. Here's what you need to know:
+        </p>
+        <ul>
+          <li><strong>Local Processing Only:</strong> All camera data is processed entirely within your browser. Video frames are analyzed by MediaPipe AI running locally on your device.</li>
+          <li><strong>No Recording:</strong> We never record, store, or save any video frames from your camera.</li>
+          <li><strong>No Transmission:</strong> Camera data is never sent to external servers, APIs, or third parties.</li>
+          <li><strong>Instant Disposal:</strong> Each video frame is analyzed and immediately discarded. No frames persist in memory beyond active detection.</li>
+        </ul>
+
+        <h2>🧠 AI Model Data</h2>
+        <p>
+          The AI models used for hand detection and gesture recognition:
+        </p>
+        <ul>
+          <li>Are loaded from Google's MediaPipe CDN as static files</li>
+          <li>Run entirely in your browser (client-side inference)</li>
+          <li>Do not send your gesture data or detection results to any server</li>
+          <li>Do not learn or adapt from your usage</li>
+        </ul>
+
+        <h2>📊 Analytics & Tracking</h2>
+        <p>
+          SignLive AI does not use any analytics, tracking cookies, or user monitoring tools. We do not:
+        </p>
+        <ul>
+          <li>Track your usage patterns</li>
+          <li>Store browsing history</li>
+          <li>Use cookies for tracking</li>
+          <li>Integrate with advertising networks</li>
+          <li>Collect any personally identifiable information</li>
+        </ul>
+
+        <h2>🌐 Third-Party Resources</h2>
+        <p>
+          The only external resources loaded by this application are:
+        </p>
+        <ul>
+          <li><strong>Google Fonts:</strong> Typography loaded from Google's CDN (subject to <a href="https://policies.google.com/privacy" style="color: var(--neon-cyan);">Google's Privacy Policy</a>)</li>
+          <li><strong>MediaPipe Models:</strong> AI model files loaded from jsDelivr CDN</li>
+        </ul>
+
+        <h2>🛡️ Security Measures</h2>
+        <ul>
+          <li>No user accounts or authentication required</li>
+          <li>No personal data collected or stored</li>
+          <li>Application works offline once models are cached</li>
+          <li>All external connections use HTTPS</li>
+        </ul>
+
+        <h2>📩 Contact</h2>
+        <p>
+          If you have any questions about this privacy policy or our data practices, please reach out through our project repository.
+        </p>
+
+        <div style="margin-top: 48px;">
+          <a href="index.html" class="btn btn-secondary">← Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-text">
+          © 2026 SignLive AI. Built with ❤️ for accessibility.
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="detect.html">Detection</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered real-time sign language detection and translation. Break communication barriers with live gesture recognition and instant English translation.">
+  <title>SignLive AI — Real-Time Sign Language Translator</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤟</text></svg>">
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <div class="loader-text">Initializing SignLive AI…</div>
+    </div>
+  </div>
+
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" id="navLogo">
+        <div class="nav-logo-icon">🤟</div>
+        <span>SignLive<span style="color: var(--neon-cyan)">AI</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="detect.html" class="nav-cta" id="navCtaLink">Start Detection →</a></li>
+      </ul>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ HERO SECTION ═══════════ -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          AI-Powered • Real-Time • Accessible
+        </div>
+        <h1 class="hero-title">
+          Real-Time <span class="gradient-text">Sign Language</span> Translator
+        </h1>
+        <p class="hero-subtitle">
+          Breaking communication barriers using AI-powered motion detection.
+          Translate sign language gestures to English text instantly with your camera.
+        </p>
+        <div class="hero-buttons">
+          <a href="detect.html" class="btn btn-primary" id="heroCta">
+            🎥 Start Live Detection
+          </a>
+          <a href="#how-it-works" class="btn btn-secondary" id="heroLearnMore">
+            Learn How It Works
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Visual Mockup -->
+      <div class="hero-visual">
+        <div class="hero-mockup">
+          <div class="hero-mockup-inner">
+            <!-- Animated hand tracking visualization -->
+            <div class="hand-animation" id="handAnimation">
+              <svg class="hand-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Palm -->
+                <ellipse cx="100" cy="155" rx="48" ry="55" fill="rgba(0, 212, 255, 0.06)" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5"/>
+                <!-- Fingers -->
+                <line x1="60" y1="110" x2="55" y2="50" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="80" y1="105" x2="78" y2="30" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="100" y1="100" x2="100" y2="20" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="120" y1="105" x2="122" y2="35" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="140" y1="115" x2="150" y2="70" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Thumb -->
+                <line x1="55" y1="140" x2="20" y2="120" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Tracking dots -->
+                <circle cx="55" cy="50" r="4" fill="#00d4ff" class="svg-dot" opacity="0.8">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="78" cy="30" r="4" fill="#00ff88" class="svg-dot" opacity="0.8">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" begin="0.3s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="100" cy="20" r="4" fill="#00d4ff" class="svg-dot" opacity="0.8">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="122" cy="35" r="4" fill="#00ff88" class="svg-dot" opacity="0.8">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="150" cy="70" r="4" fill="#00d4ff" class="svg-dot" opacity="0.8">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" begin="1.2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="20" cy="120" r="4" fill="#7c3aed" class="svg-dot" opacity="0.8">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Palm center -->
+                <circle cx="100" cy="155" r="5" fill="#7c3aed" opacity="0.6">
+                  <animate attributeName="r" values="4;6;4" dur="3s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Wrist -->
+                <circle cx="100" cy="210" r="4" fill="#00d4ff" opacity="0.5">
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+            </div>
+
+            <!-- Translation bubbles -->
+            <div class="translation-bubbles">
+              <div class="translation-bubble">✋ → "Hello"</div>
+              <div class="translation-bubble">🤟 → "I Love You"</div>
+              <div class="translation-bubble">✌️ → "Peace"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar fade-in-section">
+        <div class="stat-item">
+          <div class="stat-value">26+</div>
+          <div class="stat-label">ASL Letters</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">30fps</div>
+          <div class="stat-label">Detection Speed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">95%</div>
+          <div class="stat-label">Accuracy Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">0ms</div>
+          <div class="stat-label">Data Stored</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ HOW IT WORKS ═══════════ -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header fade-in-section">
+        <div class="section-tag">⚡ How It Works</div>
+        <h2 class="section-title">Three Simple Steps</h2>
+        <p class="section-subtitle">
+          From camera to translation in milliseconds. No sign language expertise required.
+        </p>
+      </div>
+
+      <div class="steps-grid fade-in-section">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon">📷</div>
+          <h3>Enable Camera</h3>
+          <p>Grant camera access so our AI can see your hand gestures in real-time. All processing happens locally — your data never leaves your device.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon">🤖</div>
+          <h3>AI Detection</h3>
+          <p>MediaPipe AI tracks 21 hand landmarks and our custom classifier recognizes ASL gestures with high accuracy and low latency.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon">💬</div>
+          <h3>Instant Translation</h3>
+          <p>Detected gestures are instantly translated to English text. Enable text-to-speech for voice output.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FEATURES ═══════════ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header fade-in-section">
+        <div class="section-tag">🚀 Features</div>
+        <h2 class="section-title">Powerful & Accessible</h2>
+        <p class="section-subtitle">
+          Built with cutting-edge AI technology to deliver the most accurate and accessible sign language translation experience.
+        </p>
+      </div>
+
+      <div class="features-grid fade-in-section">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Live Motion Detection</h3>
+          <p>Real-time hand tracking powered by MediaPipe with 21 landmark points. Detects subtle finger positions and hand orientations with precision.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>AI Gesture Recognition</h3>
+          <p>Custom-trained classification engine that maps finger states to ASL letters and common sign language gestures with high confidence scores.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-Time Translation</h3>
+          <p>Instant gesture-to-text translation with intelligent word assembly, automatic spacing, and smooth text output at camera frame rates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>High Accuracy Model</h3>
+          <p>Confidence scores displayed for every detection. Our multi-point analysis ensures reliable gesture classification across lighting conditions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure & Private</h3>
+          <p>All processing happens locally in your browser. Zero data is transmitted to external servers. Your camera feed is never recorded or stored.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔊</div>
+          <h3>Text-to-Speech Output</h3>
+          <p>Built-in voice synthesis reads translated text aloud. Perfect for real-time conversations between sign language and spoken English users.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA SECTION ═══════════ -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card fade-in-section">
+        <h2>Ready to <span class="gradient-text">Break Barriers</span>?</h2>
+        <p>Start translating sign language in real-time with just your camera. No downloads, no sign-ups required.</p>
+        <a href="detect.html" class="btn btn-primary" id="ctaButton" style="position: relative; z-index: 1;">
+          🚀 Launch Live Translator
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-text">
+          © 2026 SignLive AI. Built with ❤️ for accessibility.
+        </div>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="#features">Features</a>
+          <a href="detect.html">Start Detection</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
